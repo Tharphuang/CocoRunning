@@ -16,13 +16,17 @@
             android:id="@+id/et_lName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="请输入用户名" />
+            android:inputType="textPersonName"
+            android:hint="用户名" />
 
         <EditText
             android:id="@+id/et_lPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="请输入密码" />
+            android:inputType="textPassword"
+            android:hint="密码" />
+
+
 
         <Button
             android:id="@+id/btn_login"
