@@ -2,6 +2,7 @@ package com.hzp.cocorunning.presenter;
 
 import android.app.Fragment;
 import android.support.v4.view.PagerAdapter;
+import android.support.v7.widget.CardView;
 import android.view.View;
 
 import java.util.List;
@@ -10,18 +11,12 @@ import java.util.List;
  * Created by hzp on 2018/4/18.
  */
 
-public class CardAdapter extends PagerAdapter {
-    private Fragment mContext;
-    private List<String> mList;
-    //private List<PhotoView>
+public interface CardAdapter {
+    int MAX_ELEVATION_FACTOR = 8;
 
-    @Override
-    public int getCount() {
-        return 0;
-    }
+    float getBaseElevation();
 
-    @Override
-    public boolean isViewFromObject(View view, Object object) {
-        return false;
-    }
+    CardView getCardViewAt(int position);
+
+    int getCount();
 }

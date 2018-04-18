@@ -48,6 +48,9 @@ public class LoginActivity extends Activity{
                             Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_LONG).show();
                         }else {
                             Log.e("登录失败","原因",e);
+                            //e=101 '用户名或密码错误'
+                            //e=9018 '密码不能为空'
+                            //邮箱未验证
                         }
 
                     }

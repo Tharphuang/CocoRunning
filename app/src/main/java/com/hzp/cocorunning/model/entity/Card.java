@@ -12,11 +12,11 @@ public class Card extends BmobObject {
     private String cardStory;
     private BmobFile cardFile;
 
-    public Card(int cardID,String cardStory,BmobFile cardFile){
+    public Card(int cardID){
         //this.setTableName("Card");
         this.cardID=cardID;
-        this.cardStory=cardStory;
-        this.cardFile=cardFile;
+        //this.cardStory=cardStory;
+        //this.cardFile=cardFile;
     }
 
     public int getCardID() {
@@ -28,7 +28,7 @@ public class Card extends BmobObject {
     }
 
     public String getCardFileUrl() {
-        return cardFile.getFileUrl();
+        return cardFile.getUrl();
     }
 
 }
