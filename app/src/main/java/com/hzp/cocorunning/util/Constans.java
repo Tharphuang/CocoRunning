@@ -3,6 +3,7 @@ package com.hzp.cocorunning.util;
 import com.hzp.cocorunning.model.entity.Card;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -11,4 +12,5 @@ import java.util.List;
 
 public class Constans {
     public static List<Card> cardBeans =new ArrayList<Card>();
+    public static long cardList=0;
 }

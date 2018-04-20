@@ -34,9 +34,12 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="a13e5a568921825031c402af432a6903" />
+            android:value="6689d165e379ad533deafb26816c1964" />
 
-        <activity android:name=".MainActivity">
+        <service android:name="com.amap.api.location.APSService" />
+
+        <activity android:name=".ui.LoginActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,11 +47,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.RegisterActivity" />
-        <activity android:name=".ui.LoginActivity" />
+        <activity android:name=".MainActivity"
+            android:launchMode="singleTask"/>
         <activity android:name=".ui.CardallActivity" />
         <activity android:name=".ui.CardshowActivity" />
         <activity android:name=".ui.CardguildActivity" />
-        <activity android:name=".ui.MaincardActivity"></activity>
+        <activity android:name=".ui.MaincardActivity" />
+        <activity android:name=".ui.MissionFinishActivity"
+            android:launchMode="singleTask"></activity>
     </application>
 
 </manifest>

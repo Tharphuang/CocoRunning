@@ -7,6 +7,7 @@ import android.support.v7.widget.CardView;
 import android.view.ViewGroup;
 
 import com.hzp.cocorunning.ui.CardFragment;
+import com.hzp.cocorunning.util.Constans;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class CardFragmentPagerAdapter extends FragmentStatePagerAdapter implemen
         mFragments = new ArrayList<>();
         mBaseElevation = baseElevation;
 
-        for(int i = 0; i< 5; i++){
+        for(int i = 0; i< Constans.cardBeans.size(); i++){
             addCardFragment(new CardFragment());
         }
     }

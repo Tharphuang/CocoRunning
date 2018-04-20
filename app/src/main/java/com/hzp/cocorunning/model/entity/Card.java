@@ -9,6 +9,7 @@ import cn.bmob.v3.datatype.BmobFile;
 
 public class Card extends BmobObject {
     private int cardID;
+    private String cardLevel;
     private String cardStory;
     private BmobFile cardFile;
 
@@ -31,4 +32,7 @@ public class Card extends BmobObject {
         return cardFile.getUrl();
     }
 
+    public String getCardLevel() {
+        return cardLevel;
+    }
 }

@@ -3,43 +3,58 @@ package com.hzp.cocorunning;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
+import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.Circle;
+import com.amap.api.maps.model.CircleOptions;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.hzp.cocorunning.model.entity.Card;
 import com.hzp.cocorunning.ui.CardallActivity;
 import com.hzp.cocorunning.ui.LoginActivity;
+import com.hzp.cocorunning.ui.MissionFinishActivity;
+import com.hzp.cocorunning.util.Constans;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
+
+import static java.lang.Thread.sleep;
 
 
 public class MainActivity extends AppCompatActivity implements AMap.OnMyLocationChangeListener {
     private Button btn_mianlogin;
-    private Button btn_download;
-
+    private FloatingActionButton btn_download;
+    private Button btn_cards;
+    private MainActivity self = this;
     MyLocationStyle myLocationStyle;
-    private LatLng latlngA = new LatLng(39.964546,116.358041);//北邮学6坐标
+    public LatLng latlngA = new LatLng(39.964546,116.358041);//北邮学6坐标
     //指示点的坐标
     private LatLng latlngDirection;
-
     TextView text;
     TextView tex1;
     private double distance = 10000;
@@ -51,11 +66,42 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
     private AMap aMap;
 
 
+      //处理距离判断的线程 的what参数
+    public static final int JUDGE_DISTANCE = 1;
+    //线程使用的handler  创建一个线程来进行实时距离判断
+    @SuppressLint("HandlerLeak")
+    private android.os.Handler handler = new android.os.Handler(){
+        public void handleMessage(android.os.Message msg){
+            switch (msg.what){
+                case JUDGE_DISTANCE:
+                    Intent intent = new Intent(self,MissionFinishActivity.class);
+
+                    SharedPreferences sharedPreferences = getSharedPreferences("positionList",MODE_PRIVATE);
+                    int positionNum = sharedPreferences.getInt("rank",1);
+
+                    String number = new Integer(positionNum).toString();
+                    String latitudeInSP = "latitude"+number;
+                    String longitudeInSP = "longitude"+number;
+
+                    Float latitude = sharedPreferences.getFloat(latitudeInSP, (float)0);
+                    Float longitude = sharedPreferences.getFloat(longitudeInSP,(float)0);
+
+                    positionNum++;
+                    SharedPreferences.Editor editor = getSharedPreferences("positionList",MODE_PRIVATE).edit();
+                    editor.putInt("rank",positionNum);
+
+                    latlngA = new LatLng(latitude,longitude);
+                    tex1.setText(positionNum+"当前目的地点坐标"+latitude+" "+longitude);
+                    startActivity(intent);
+            }
+        }
+    };
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bmob.initialize(this,"dcb6f3d496754f2894444be08632e0fa");
+
         setContentView(R.layout.activity_main);
 
         text = findViewById(R.id.info_text);
@@ -63,21 +109,20 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
         //获取地图控件的引用
         mMapView = findViewById(R.id.map);
         //创建地图
-        mMapView.onCreate(savedInstanceState);// 此方法须覆写，虚拟机需要在很多情况下保存地图绘制的当前状态。
+        mMapView.onCreate(savedInstanceState);//此方法须覆写，虚拟机需要在很多情况下保存地图绘制的当前状态。
         //初始化地图控制器对象
         aMap = mMapView.getMap();
-
-//        AmapLocationInit();
-//        startLocation();
         aMap.setOnMyLocationChangeListener(this);
-        aMap.setMinZoomLevel(19);
+        aMap.setMinZoomLevel(20);
+        aMap.setMaxZoomLevel(20);
         setMapCustomStyleFile(this);
         aMap.setMapCustomEnable(true);
 
 
+
         //定位小蓝点的显示
         myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
-        myLocationStyle.strokeColor(Color.argb(255,255,255,255));//设置定位蓝点精度圆圈的边框颜色的方法。
+        myLocationStyle.strokeColor(Color.argb(0,255,255,255));//设置定位蓝点精度圆圈的边框颜色的方法。
         myLocationStyle.radiusFillColor(Color.argb(0,0,0,0));//设置定位蓝点精度圆圈的填充颜色的方法。
         myLocationStyle.strokeWidth((float) 2.0);
         myLocationStyle.myLocationIcon(BitmapDescriptorFactory
@@ -91,28 +136,56 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
         mUiSettings = aMap.getUiSettings();
         //mUiSettings.setTiltGesturesEnabled(false);// 设置地图是否可以倾斜
         mUiSettings.setScaleControlsEnabled(true);// 设置地图默认的比例尺是否显示
-
-        if(judgeTheDistance(distance)){
-            //Intent intent = new Intent(this,Main2Activity.class);
-           // startActivity(intent);
-        }
-
-
-        btn_mianlogin=findViewById(R.id.btn_mainlogin);
-        btn_mianlogin.setOnClickListener(new View.OnClickListener() {
+        mUiSettings.setZoomControlsEnabled(false);//去掉右下角缩放键
+        new Thread(new Runnable() {
             @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(intent);
+            public void run() {
+                while (true){
+                    if(judgeTheDistance(distance)){
+                        Message message = new Message();
+                        message.what = JUDGE_DISTANCE;
+                        handler.sendMessage(message);
+                        try{
+                            sleep(2000);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
             }
-        });
+        }).start();
 
-        btn_download=findViewById(R.id.btn_download);
+
+        btn_download=findViewById(R.id.bMain_Float);
         btn_download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                Intent intent=new Intent(MainActivity.this, CardallActivity.class);
                startActivity(intent);
+            }
+        });
+        final BmobQuery<Card> bmobQuery = new BmobQuery<Card>();
+        bmobQuery.findObjects(new FindListener<Card>() {
+            @Override
+            public void done(List<Card> list, BmobException e) {
+                if(e==null){
+                    for(int i=0;i<Constans.cardList;i++){
+                        Constans.cardBeans.add(list.get(i));
+                    }
+                    //Toast.makeText(CardallActivity.this,"查询成功"+ list.get(1).getCardLevel(),Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        final BmobQuery<BmobUser> query=new BmobQuery<BmobUser>();
+        query.addWhereEqualTo("username","Tharp");
+        query.findObjects(new FindListener<BmobUser>(){
+
+            @Override
+            public void done(List<BmobUser> list, BmobException e) {
+                if(e==null){
+
+                }
             }
         });
     }
@@ -149,12 +222,21 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
         LatLng latlngB = new LatLng(location.getLatitude(),location.getLongitude());
         distance = AMapUtils.calculateLineDistance(latlngA, latlngB);
         text.setText("你的坐标为："+latlngB+"\n距离目标点:"+distance+"m\n");
-        tex1.setText(myLocationStyle.getRadiusFillColor()+" "+myLocationStyle.getStrokeColor()+" "+myLocationStyle.getStrokeWidth());
+        //在你的周围绘制一个圆圈
+        Circle circle;
+        circle = aMap.addCircle(new CircleOptions().
+                center(latlngB).
+                radius(1000).
+                fillColor(Color.argb(0, 1, 1, 1)).
+                strokeColor(Color.argb(1, 255, 255, 255)).
+                strokeWidth(15));
+
+
         //显示指明方向的点
         double lat = latlngA.latitude-latlngB.latitude;
         double lng = latlngA.longitude-latlngB.longitude;
         //计算除指示方向的点的经纬度
-        latlngDirection = new LatLng(((30/distance)*lat+latlngB.latitude),((30/distance)*lng+latlngB.longitude));
+        latlngDirection = new LatLng(((27/distance)*lat+latlngB.latitude),((27/distance)*lng+latlngB.longitude));
         //在地图上画出指示方向的点
         setDirection();
     }
@@ -204,7 +286,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
     //显示一个maker，来标识方位
     public void setDirection(){
         if(marker!=null){
-
+            marker.destroy();
         }
         markerOption = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.sq_br_up))
                 .position(latlngDirection)

@@ -37,6 +37,7 @@ public class RegisterActivity extends Activity {
                 bu.setUsername(et_name.getText().toString());
                 bu.setPassword(et_pass.getText().toString());
                 bu.setEmail(et_email.getText().toString());
+
                 bu.signUp(new SaveListener<userBean>() {
                     @Override
                     public void done(userBean user, BmobException e) {
@@ -45,6 +46,7 @@ public class RegisterActivity extends Activity {
                         }else {
                             //e=202 用户已经存在
                             Log.e("注册失败","原因",e);
+                            Toast.makeText(RegisterActivity.this,"注册shibai",Toast.LENGTH_LONG).show();
                         }
 
                     }

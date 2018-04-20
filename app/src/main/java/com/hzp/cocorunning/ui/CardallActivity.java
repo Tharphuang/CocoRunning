@@ -28,20 +28,7 @@ public class CardallActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cardall);
 
         //imageDownload iml=new imageDownload();
-
-        final BmobQuery<Card> bmobQuery = new BmobQuery<Card>();
-        //bmobQuery.addWhereEqualTo("objectId","1");
-        bmobQuery.findObjects(new FindListener<Card>() {
-            @Override
-            public void done(List<Card> list, BmobException e) {
-                if(e==null){
-                    for(int i=0;i<list.size();i++){
-                        Constans.cardBeans.add(list.get(i));
-                    }
-                    //Toast.makeText(CardallActivity.this,"查询成功"+ list.get(1).getCardFileUrl(),Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+        //Toast.makeText(CardallActivity.this,String.valueOf(Constans.cardOwn.get(1)),Toast.LENGTH_LONG).show();
     }
 
     public void skipMe(View view){

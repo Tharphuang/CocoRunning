@@ -14,6 +14,7 @@ import com.hzp.cocorunning.presenter.CardFragmentPagerAdapter;
 import com.hzp.cocorunning.presenter.CardItem;
 import com.hzp.cocorunning.presenter.CardPagerAdapter;
 import com.hzp.cocorunning.presenter.ShadowTransformer;
+import com.hzp.cocorunning.util.Constans;
 
 public class MaincardActivity extends AppCompatActivity implements View.OnClickListener,
         CompoundButton.OnCheckedChangeListener{
@@ -33,15 +34,14 @@ public class MaincardActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maincard);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
-        mButton = (Button) findViewById(R.id.cardTypeBtn);
+        //mButton = (Button) findViewById(R.id.cardTypeBtn);
         ((CheckBox) findViewById(R.id.checkBox)).setOnCheckedChangeListener(this);
-        mButton.setOnClickListener(this);
+        //mButton.setOnClickListener(this);
 
         mCardAdapter = new CardPagerAdapter();
-        mCardAdapter.addCardItem(new CardItem(R.string.title_1, R.string.text_1));
-        mCardAdapter.addCardItem(new CardItem(R.string.title_2, R.string.text_1));
-        mCardAdapter.addCardItem(new CardItem(R.string.title_3, R.string.text_1));
-        mCardAdapter.addCardItem(new CardItem(R.string.title_4, R.string.text_1));
+        for(int i=0;i<Constans.cardBeans.size();i++) {
+            mCardAdapter.addCardItem(new CardItem(Constans.cardBeans.get(i).getCardLevel(), Constans.cardBeans.get(i).getCardStory()));
+        }
         mFragmentCardAdapter = new CardFragmentPagerAdapter(getSupportFragmentManager(),
                 dpToPixels(2, this));
 
@@ -56,11 +56,11 @@ public class MaincardActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         if (!mShowingFragments) {
-            mButton.setText("Views");
+            //mButton.setText("Views");
             mViewPager.setAdapter(mFragmentCardAdapter);
             mViewPager.setPageTransformer(false, mFragmentCardShadowTransformer);
         } else {
-            mButton.setText("Fragments");
+            //mButton.setText("Fragments");
             mViewPager.setAdapter(mCardAdapter);
             mViewPager.setPageTransformer(false, mCardShadowTransformer);
         }

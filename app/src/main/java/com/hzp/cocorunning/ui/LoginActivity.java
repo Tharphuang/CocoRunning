@@ -2,6 +2,7 @@ package com.hzp.cocorunning.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,9 +12,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hzp.cocorunning.MainActivity;
 import com.hzp.cocorunning.R;
 import com.hzp.cocorunning.model.entity.userBean;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
@@ -26,7 +32,30 @@ public class LoginActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bmob.initialize(this,"dcb6f3d496754f2894444be08632e0fa");
         setContentView(R.layout.activity_login);
+
+        //初始化地点列表
+        //读数据
+        if(getSharedPreferences("cardList",MODE_PRIVATE)==null){
+            SharedPreferences.Editor editor = getSharedPreferences("positionList",MODE_PRIVATE).edit();
+            editor.putFloat("latitude1", (float) 39.960395);
+            editor.putFloat("longitude1",(float) 116.356351);
+
+            editor.putFloat("latitude2", (float) 39.962099);
+            editor.putFloat("longitude2",(float) 116.358003);
+
+            editor.putFloat("latitude3", (float) 39.961966);
+            editor.putFloat("longitude3",(float) 116.360766);
+
+            editor.putFloat("latitude4", (float) 39.962373);
+            editor.putFloat("longitude4",(float) 116.357399);
+
+            editor.putFloat("latitude5", (float) 39.961249);
+            editor.putFloat("longitude5",(float) 116.358091);
+
+            editor.putInt("rank" ,0);
+        }
 
         btn_login=(Button)findViewById(R.id.btn_login);
         et_lName=(EditText)findViewById(R.id.et_lName);
@@ -46,6 +75,7 @@ public class LoginActivity extends Activity{
                     public void done(userBean user, BmobException e) {
                         if(e==null){
                             Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         }else {
                             Log.e("登录失败","原因",e);
                             //e=101 '用户名或密码错误'
@@ -57,6 +87,7 @@ public class LoginActivity extends Activity{
                 });
             }
         });
+
 
         tv_register.setOnClickListener(new View.OnClickListener() {
             @Override
