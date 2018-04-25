@@ -17,28 +17,25 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="返回"
-            android:onClick="skipCardAll"
-            />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Load Image"
-            android:onClick="loadImage"
-            />
+            android:onClick="skipCardAll"
+            android:text="返回" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Load Image" />
 
         <TextView
             android:layout_width="50dp"
             android:layout_height="30dp"
             android:layout_marginLeft="200dp"
             android:text="SS"
-            android:textSize="30dp"
             android:textColor="#EEEE00"
-            />
+            android:textSize="30dp" />
 
 
     </LinearLayout>
@@ -51,7 +48,7 @@
         <TextView
             android:layout_width="250dp"
             android:layout_height="200dp"
-            android:text="丽桑卓的魔法将纯净的冰霜之力扭曲为某种黑暗而可怕的东西。她的黯冰之力不仅能冻结一切，还能将任何反抗之人刺穿并粉碎。在北部终日惊惶的居民中，人们只知道她是“冰霜女巫”。但事实却更为邪恶：丽桑卓是自然世界的腐化者，她的阴谋是要让全世界都进入都彻骨寒冷的冰河世纪。"
+            android:id="@+id/card_title"
             android:textSize="15dp"
             android:textColor="#FFFFFF"
             />

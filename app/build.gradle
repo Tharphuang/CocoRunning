@@ -49,4 +49,5 @@ dependencies {
     //Gulide 图片加载
     compile 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.android.support:design:26.1.0'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 }

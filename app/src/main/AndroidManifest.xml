@@ -38,7 +38,8 @@
 
         <service android:name="com.amap.api.location.APSService" />
 
-        <activity android:name=".ui.LoginActivity"
+        <activity
+            android:name=".ui.LoginActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,14 +48,28 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.RegisterActivity" />
-        <activity android:name=".MainActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".ui.CardallActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".ui.CardshowActivity" />
         <activity android:name=".ui.CardguildActivity" />
         <activity android:name=".ui.MaincardActivity" />
-        <activity android:name=".ui.MissionFinishActivity"
-            android:launchMode="singleTask"></activity>
+        <activity
+            android:name=".ui.MissionFinishActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".ui.AllCardActivity" />
+        <activity android:name=".ui.CardPages.baiyang" />
+        <activity android:name=".ui.CardPages.jinniu" />
+        <activity android:name=".ui.CardPages.shuangzi" />
+        <activity android:name=".ui.CardPages.juxie" />
+        <activity android:name=".ui.CardPages.shizi" />
+        <activity android:name=".ui.CardPages.chunv" />
+        <activity android:name=".ui.CardPages.tianping" />
+        <activity android:name=".ui.CardPages.tianxie" />
+        <activity android:name=".ui.CardPages.sheshou" />
+        <activity android:name=".ui.CardPages.mojie" />
+        <activity android:name=".ui.CardPages.shuiping" />
+        <activity android:name=".ui.CardPages.shuangyu"></activity>
     </application>
 
 </manifest>

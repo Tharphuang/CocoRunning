@@ -11,13 +11,15 @@
     tools:layout_constraintLeft_creator="1"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@color/balck">
 
     <Button
         android:layout_width="70dp"
         android:layout_height="40dp"
         android:text="返回"
         android:id="@+id/back"
+        android:textColor="@color/white"
         android:background="#00000000"/>
 
 
@@ -29,7 +31,7 @@
         <TextView
             android:layout_width="380dp"
             android:layout_height="100dp"
-            android:text="恭喜你！完成任务！"
+            android:text=""
             android:textColor="#CD4F39"
             android:textSize="40dp"/>
 
