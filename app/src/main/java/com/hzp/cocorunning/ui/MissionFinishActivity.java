@@ -11,6 +11,8 @@ import android.widget.Button;
 import com.hzp.cocorunning.R;
 import com.hzp.cocorunning.util.Constans;
 
+import com.hzp.cocorunning.R;
+
 public class MissionFinishActivity extends AppCompatActivity {
 
 

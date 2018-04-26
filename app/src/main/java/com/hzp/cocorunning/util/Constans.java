@@ -13,7 +13,8 @@ import java.util.List;
 
 public class Constans {
     public static List<Card> cardBeans =new ArrayList<Card>();
-    public static int CardSelect = 0;
+
+    public static int CardSelect;
     public static long cardList;
     //学六
     public static LatLng latLng0 = new LatLng(39.964546,116.358041);
@@ -29,5 +30,4 @@ public class Constans {
     public static LatLng latLng5 = new LatLng(39.961249,116.358091);
     //一个List存储北邮校内的一些标志性建筑物
     public static List<LatLng> latLngList = Arrays.asList(latLng0,latLng1,latLng2,latLng3,latLng4,latLng5);
-
 }

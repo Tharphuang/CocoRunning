@@ -14,14 +14,26 @@ import android.widget.Toast;
 
 import com.hzp.cocorunning.MainActivity;
 import com.hzp.cocorunning.R;
+import com.hzp.cocorunning.configBase.pointCreat;
+import com.hzp.cocorunning.model.entity.Card;
+import com.hzp.cocorunning.model.entity.point;
 import com.hzp.cocorunning.model.entity.userBean;
+import com.hzp.cocorunning.util.Constans;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobBatch;
+import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BatchResult;
+import cn.bmob.v3.datatype.BmobGeoPoint;
+import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.QueryListListener;
 import cn.bmob.v3.listener.SaveListener;
 
 public class LoginActivity extends Activity{
@@ -29,11 +41,19 @@ public class LoginActivity extends Activity{
     private EditText et_lName,et_lPass;
     private TextView tv_etpass,tv_register;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bmob.initialize(this,"dcb6f3d496754f2894444be08632e0fa");
         setContentView(R.layout.activity_login);
+
+
+        /**
+         * 初次创建程序时 永远初始化目标点的坐标
+         * */
+        //pointCreat pc=new pointCreat();
+        //pc.initPointCreat();
 
         //初始化地点列表
         //读数据
@@ -56,6 +76,7 @@ public class LoginActivity extends Activity{
 
             editor.putInt("rank" ,0);
         }
+
 
         btn_login=(Button)findViewById(R.id.btn_login);
         et_lName=(EditText)findViewById(R.id.et_lName);
@@ -85,6 +106,20 @@ public class LoginActivity extends Activity{
 
                     }
                 });
+            }
+        });
+
+        //card类的下载
+        final BmobQuery<Card> bmobQuery = new BmobQuery<Card>();
+        bmobQuery.findObjects(new FindListener<Card>() {
+            @Override
+            public void done(List<Card> list, BmobException e) {
+                if(e==null){
+                    for(int i = 0; i<list.size(); i++){
+                        Constans.cardBeans.add(list.get(i));
+                    }
+                    // Toast.makeText(LoginActivity.this,"查询成功"+ Constans.cardBeans.get(1).getCardStory(),Toast.LENGTH_LONG).show();
+                }
             }
         });
 

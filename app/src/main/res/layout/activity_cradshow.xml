@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/lissandra"
     tools:context="com.hzp.cocorunning.ui.CardshowActivity"
     android:orientation="vertical"
     tools:layout_constraintTop_creator="1"
@@ -14,45 +13,30 @@
     android:weightSum="1"
     >
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="skipCardAll"
-            android:text="返回" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Load Image" />
+        <ImageView
+            android:id="@+id/cardshowbk"
+            android:layout_width="377dp"
+            android:layout_height="421dp"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="123dp"></ImageView>
 
         <TextView
             android:layout_width="50dp"
             android:layout_height="30dp"
             android:layout_marginLeft="200dp"
-            android:text="SS"
+            android:id="@+id/cardShowTV1"
+            android:textSize="30dp"
             android:textColor="#EEEE00"
-            android:textSize="30dp" />
+            />
 
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="280dp"
-        android:layout_marginLeft="120dp">
         <TextView
             android:layout_width="250dp"
             android:layout_height="200dp"
-            android:id="@+id/card_title"
+            android:id="@+id/cardShowTV2"
             android:textSize="15dp"
             android:textColor="#FFFFFF"
             />
-    </LinearLayout>
 
 
-</LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

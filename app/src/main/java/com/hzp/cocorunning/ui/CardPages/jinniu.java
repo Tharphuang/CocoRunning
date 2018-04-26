@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.hzp.cocorunning.R;
 import com.hzp.cocorunning.ui.CardshowActivity;
+import com.hzp.cocorunning.util.Constans;
 
 public class jinniu extends AppCompatActivity implements View.OnClickListener {
 
@@ -41,21 +42,27 @@ public class jinniu extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.view201:
+                Constans.CardSelect = 201;
                 startActivity(new Intent(jinniu.this, CardshowActivity.class));
                 break;
             case R.id.view202:
+                Constans.CardSelect = 202;
                 startActivity(new Intent(jinniu.this, CardshowActivity.class));
                 break;
             case R.id.view203:
+                Constans.CardSelect = 203;
                 startActivity(new Intent(jinniu.this, CardshowActivity.class));
                 break;
             case R.id.view204:
+                Constans.CardSelect = 204;
                 startActivity(new Intent(jinniu.this, CardshowActivity.class));
                 break;
             case R.id.view205:
+                Constans.CardSelect = 205;
                 startActivity(new Intent(jinniu.this, CardshowActivity.class));
                 break;
             case R.id.view206:
+                Constans.CardSelect = 206;
                 startActivity(new Intent(jinniu.this, CardshowActivity.class));
                 break;
             default:
