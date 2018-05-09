@@ -6,4 +6,5 @@ import cn.bmob.v3.datatype.BmobGeoPoint;
 public class Pointt extends BmobObject {
     private int pointId;
     private BmobGeoPoint longitude;
+
 }
