@@ -39,7 +39,7 @@
         <service android:name="com.amap.api.location.APSService" />
 
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".ui.startAction.cocoLogoActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -69,7 +69,11 @@
         <activity android:name=".ui.CardPages.sheshou" />
         <activity android:name=".ui.CardPages.mojie" />
         <activity android:name=".ui.CardPages.shuiping" />
-        <activity android:name=".ui.CardPages.shuangyu"></activity>
+        <activity android:name=".ui.CardPages.shuangyu" />
+        <activity
+            android:name=".ui.LoginActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".ui.startAction.gameTipsActivity"></activity>
     </application>
 
 </manifest>

@@ -1,52 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hzp.cocorunning.ui.MissionFinishActivity"
+    tools:context="com.hzp.cocorunning.ui.CardshowActivity"
     android:orientation="vertical"
     tools:layout_constraintTop_creator="1"
     tools:layout_constraintLeft_creator="1"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     android:weightSum="1"
-    android:background="@color/balck">
+    android:background="@color/balck"
+    >
 
-    <Button
-        android:layout_width="70dp"
-        android:layout_height="40dp"
-        android:text="返回"
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/back"
-        android:textColor="@color/white"
-        android:background="#00000000"/>
+        android:layout_width="33dp"
+        android:layout_height="41dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@mipmap/fanhui"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout1_finish"
+        android:layout_width="264dp"
+        android:layout_height="396dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/cardshowbk_finish"
+            android:layout_width="264dp"
+            android:layout_height="396dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    <LinearLayout
-        android:layout_width="380dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="50dp">
+        <ImageView
+            android:id="@+id/biankuang"
+            android:layout_width="264dp"
+            android:layout_height="391dp"
+            android:src="@drawable/kapaibiankuang"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.6" />
 
-        <TextView
-            android:layout_width="380dp"
-            android:layout_height="100dp"
-            android:text=""
-            android:textColor="#CD4F39"
-            android:textSize="40dp"/>
+    </android.support.constraint.ConstraintLayout>
 
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="380dp"
-        android:layout_height="200dp">
+    <TextView
+        android:id="@+id/cardShowTV2"
+        android:layout_width="294dp"
+        android:layout_height="112dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:textSize="35dp"
+        android:text="恭喜你！获得一张卡片，快去看看吧"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout1_finish" />
 
-        <TextView
-            android:layout_width="380dp"
-            android:layout_height="100dp"
-            android:text="你已经获得一张卡片...快去看看吧！"
-            android:textColor="#CD4F39"
-            android:textSize="30dp"/>
-    </LinearLayout>
 
-</LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

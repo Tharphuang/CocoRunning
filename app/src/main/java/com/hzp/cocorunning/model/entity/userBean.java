@@ -11,7 +11,18 @@ import cn.bmob.v3.BmobUser;
 
 public class userBean extends BmobUser {
     private String nick;
-    private int cardScore;
+
+    private  int cardScore ;
+
+    public int getCardScore() {
+        return cardScore;
+    }
+
+    public void setCardScore(int cardScore) {
+        this.cardScore = cardScore;
+    }
+
+    private List<Boolean> cardOwn=new ArrayList<Boolean>();
 
     public String getNick() {
         return nick;
@@ -21,11 +32,11 @@ public class userBean extends BmobUser {
         this.nick = nick;
     }
 
-    public int getCardScore() {
-        return cardScore;
+    public List<Boolean> getCardOwn() {
+        return cardOwn;
     }
 
-    public void setCardScore(int cardScore) {
-        this.cardScore = cardScore;
+    public void setCardOwn(List<Boolean> cardOwn) {
+        this.cardOwn = cardOwn;
     }
 }

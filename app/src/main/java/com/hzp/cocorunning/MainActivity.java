@@ -11,10 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.MapView;
@@ -26,9 +23,12 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.amap.api.services.core.LatLonPoint;
+import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.poisearch.PoiResult;
+import com.amap.api.services.poisearch.PoiSearch;
 import com.hzp.cocorunning.model.entity.Card;
 import com.hzp.cocorunning.ui.AllCardActivity;
-import com.hzp.cocorunning.ui.LoginActivity;
 import com.hzp.cocorunning.ui.MissionFinishActivity;
 import com.hzp.cocorunning.util.Constans;
 
@@ -36,10 +36,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -48,17 +48,16 @@ import cn.bmob.v3.listener.FindListener;
 import static java.lang.Thread.sleep;
 
 
-public class MainActivity extends AppCompatActivity implements AMap.OnMyLocationChangeListener {
-    private Button btn_mianlogin;
+public class MainActivity extends AppCompatActivity implements AMap.OnMyLocationChangeListener, PoiSearch.OnPoiSearchListener {
     private FloatingActionButton btn_download;
-    private Button btn_cards;
     private MainActivity self = this;
     MyLocationStyle myLocationStyle;
-    public LatLng latlngA = new LatLng(39.964546,116.358041);//北邮学6坐标
+    public LatLng latlngA= null;//北邮学6坐标
+    int latLngNumber = 0;
     //指示点的坐标
     private LatLng latlngDirection;
-    TextView text;
-    TextView tex1;
+//    TextView text;
+//    TextView tex1;
     private double distance = 10000;
     private UiSettings mUiSettings;
     //在地图上画一个点 ，以显示方向
@@ -67,47 +66,49 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
     MapView mMapView = null;
     private AMap aMap;
 
+    //poi搜索的相关功能
+    private PoiSearch.Query query = null;
+    private String keyword = null;
+    PoiSearch poiSearch = null;
 
+
+
+    private Circle circle;
       //处理距离判断的线程 的what参数
     public static final int JUDGE_DISTANCE = 1;
     //线程使用的handler  创建一个线程来进行实时距离判断
     @SuppressLint("HandlerLeak")
     private android.os.Handler handler = new android.os.Handler(){
+        @SuppressLint("SetTextI18n")
         public void handleMessage(android.os.Message msg){
             switch (msg.what){
                 case JUDGE_DISTANCE:
                     Intent intent = new Intent(self,MissionFinishActivity.class);
 
-                    SharedPreferences sharedPreferences = getSharedPreferences("positionList",MODE_PRIVATE);
-                    int positionNum = sharedPreferences.getInt("rank",1);
+                    Random random=new Random();// 定义随机类
+                    latLngNumber=random.nextInt(6);
 
-                    String number = new Integer(positionNum).toString();
-                    String latitudeInSP = "latitude"+number;
-                    String longitudeInSP = "longitude"+number;
-
-                    Float latitude = sharedPreferences.getFloat(latitudeInSP, (float)0);
-                    Float longitude = sharedPreferences.getFloat(longitudeInSP,(float)0);
-
-                    positionNum++;
-                    SharedPreferences.Editor editor = getSharedPreferences("positionList",MODE_PRIVATE).edit();
-                    editor.putInt("rank",positionNum);
-
-                    latlngA = new LatLng(latitude,longitude);
-                    tex1.setText(positionNum+"当前目的地点坐标"+latitude+" "+longitude);
+                    latlngA = Constans.latLngList.get(latLngNumber);
+//                    tex1.setText(latLngNumber+"  当前目的地点坐标"+latlngA);
                     startActivity(intent);
             }
         }
     };
 
+    public MainActivity() {
+    }
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+        //设定初始的坐标为北邮学6
+        latlngA = Constans.latLngList.get(latLngNumber);
 
-
-        text = findViewById(R.id.info_text);
-        tex1 = findViewById(R.id.info_text1);
+//        text = findViewById(R.id.info_text);
+//        tex1 = findViewById(R.id.info_text1);
         //获取地图控件的引用
         mMapView = findViewById(R.id.map);
         //创建地图
@@ -131,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
                 .fromResource(R.drawable.br_up));// 设置小蓝点的图标
         myLocationStyle.interval(1500); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
-        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示，非必需设置。
+        //aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示，非必需设置。
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
 
         //设置一些地图的参数
@@ -168,17 +169,15 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
         });
 
 
-        final BmobQuery<BmobUser> query=new BmobQuery<BmobUser>();
-        query.addWhereEqualTo("username","Tharp");
-        query.findObjects(new FindListener<BmobUser>(){
+       // final BmobQuery<BmobUser> query= new BmobQuery<>();
+//        query.addWhereEqualTo("username","Tharp");
+//        query.findObjects(new FindListener<BmobUser>(){
 
-            @Override
-            public void done(List<BmobUser> list, BmobException e) {
-                if(e==null){
-
-                }
-            }
-        });
+//            @Override
+//            public void done(List<BmobUser> list, BmobException e) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -212,15 +211,26 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
     public void onMyLocationChange(Location location) {
         LatLng latlngB = new LatLng(location.getLatitude(),location.getLongitude());
         distance = AMapUtils.calculateLineDistance(latlngA, latlngB);
-        text.setText("你的坐标为："+latlngB+"\n距离目标点:"+distance+"m\n");
+//        text.setText("你的坐标为："+latlngB+"\n距离目标点:"+distance+"m\n");
         //在你的周围绘制一个圆圈
-        Circle circle;
-        circle = aMap.addCircle(new CircleOptions().
-                center(latlngB).
-                radius(1000).
-                fillColor(Color.argb(0, 1, 1, 1)).
-                strokeColor(Color.argb(1, 255, 255, 255)).
-                strokeWidth(15));
+        if(circle!=null){
+            circle.remove();
+        }
+        if(isClosetoDestination(distance)){
+            circle = aMap.addCircle(new CircleOptions().
+                    center(latlngB).
+                    radius(26).
+                    fillColor(Color.argb(0, 1, 1, 1)).
+                    strokeColor(Color.argb(255, 255, 0, 0)).
+                    strokeWidth(5));
+        }else {
+            circle = aMap.addCircle(new CircleOptions().
+                    center(latlngB).
+                    radius(26).
+                    fillColor(Color.argb(0, 1, 1, 1)).
+                    strokeColor(Color.argb(255, 255, 255, 255)).
+                    strokeWidth(5));
+        }
 
 
         //显示指明方向的点
@@ -230,6 +240,26 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
         latlngDirection = new LatLng(((27/distance)*lat+latlngB.latitude),((27/distance)*lng+latlngB.longitude));
         //在地图上画出指示方向的点
         setDirection();
+
+//        //使用高德地图的poi搜索功能，对周边的标志性建筑物进行检索
+//        int currentPage= 0;
+//        keyword = "美食";
+//        query = new PoiSearch.Query(keyword, "", "");
+//        //keyWord表示搜索字符串，
+//        //第二个参数表示POI搜索类型，二者选填其一，选用POI搜索类型时建议填写类型代码，码表可以参考下方（而非文字）
+//        //cityCode表示POI搜索区域，可以是城市编码也可以是城市名称，也可以传空字符串，空字符串代表全国在全国范围内进行搜索
+//        query.setPageSize(20);// 设置每页最多返回多少条poiitem
+//        query.setPageNum(currentPage);//设置查询页码
+//
+//        if(latlngB!=null){
+//
+//            poiSearch = new PoiSearch(self, query);
+//            poiSearch.setOnPoiSearchListener(self);
+//            LatLonPoint lp = new LatLonPoint(latlngB.latitude, latlngB.longitude);
+//            poiSearch.setBound(new PoiSearch.SearchBound(lp, 5000, true));//
+//            // 设置搜索区域为以lp点为圆心，其周围5000米范围
+//            poiSearch.searchPOIAsyn();// 异步搜索
+//        }
     }
 
     //获取自定义地图的文件位置，并进行相关设置
@@ -274,6 +304,8 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
     public boolean judgeTheDistance(double distance) {
         return !(distance > 20) && distance >= 0;
     }
+    //判断是否已接近目的地
+    public boolean isClosetoDestination(double distance){return !(distance>50) && distance>=0;  }
     //显示一个maker，来标识方位
     public void setDirection(){
         if(marker!=null){
@@ -285,4 +317,14 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
         marker = aMap.addMarker(markerOption);
     }
 
+
+    @Override
+    public void onPoiSearched(PoiResult poiResult, int i) {
+
+    }
+
+    @Override
+    public void onPoiItemSearched(PoiItem poiItem, int i) {
+
+    }
 }

@@ -25,10 +25,10 @@ public class RegisterActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        btn_register=(Button) findViewById(R.id.btn_register);
-        et_name=(EditText) findViewById(R.id.et_name);
-        et_pass=(EditText) findViewById(R.id.et_pass);
-        et_email=(EditText) findViewById(R.id.et_email);
+        btn_register=(Button) findViewById(R.id.register_register);
+        et_name=(EditText) findViewById(R.id.name_register);
+        et_pass=(EditText) findViewById(R.id.password_register);
+        et_email=(EditText) findViewById(R.id.email_register);
 
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override

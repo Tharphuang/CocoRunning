@@ -35,15 +35,15 @@ public class baiyang extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.view101:
-                Constans.CardSelect = 101;
+                Constans.CardSelect = 0;
                 startActivity(new Intent(baiyang.this, CardshowActivity.class));
                 break;
             case R.id.view102:
-                Constans.CardSelect = 102;
+                Constans.CardSelect = 1;
                 startActivity(new Intent(baiyang.this, CardshowActivity.class));
                 break;
             case R.id.view103:
-                Constans.CardSelect = 103;
+                Constans.CardSelect = 2;
                 startActivity(new Intent(baiyang.this, CardshowActivity.class));
                 break;
             default:

@@ -42,27 +42,27 @@ public class jinniu extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.view201:
-                Constans.CardSelect = 201;
+                Constans.CardSelect = 3;
                 startActivity(new Intent(jinniu.this, CardshowActivity.class));
                 break;
             case R.id.view202:
-                Constans.CardSelect = 202;
+                Constans.CardSelect = 4;
                 startActivity(new Intent(jinniu.this, CardshowActivity.class));
                 break;
             case R.id.view203:
-                Constans.CardSelect = 203;
+                Constans.CardSelect = 5;
                 startActivity(new Intent(jinniu.this, CardshowActivity.class));
                 break;
             case R.id.view204:
-                Constans.CardSelect = 204;
+                Constans.CardSelect = 6;
                 startActivity(new Intent(jinniu.this, CardshowActivity.class));
                 break;
             case R.id.view205:
-                Constans.CardSelect = 205;
+                Constans.CardSelect = 7;
                 startActivity(new Intent(jinniu.this, CardshowActivity.class));
                 break;
             case R.id.view206:
-                Constans.CardSelect = 206;
+                Constans.CardSelect = 8;
                 startActivity(new Intent(jinniu.this, CardshowActivity.class));
                 break;
             default:
