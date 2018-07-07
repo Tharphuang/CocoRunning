@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.TextView;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMapUtils;
+import com.amap.api.maps.CameraUpdate;
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
@@ -71,7 +73,8 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
     private String keyword = null;
     PoiSearch poiSearch = null;
 
-
+    //cameraUpdate对象来更新对象状态
+    CameraUpdate cameraUpdate;
 
     private Circle circle;
       //处理距离判断的线程 的what参数
@@ -115,12 +118,6 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
         mMapView.onCreate(savedInstanceState);//此方法须覆写，虚拟机需要在很多情况下保存地图绘制的当前状态。
         //初始化地图控制器对象
         aMap = mMapView.getMap();
-        aMap.setOnMyLocationChangeListener(this);
-        aMap.setMinZoomLevel(20);
-        aMap.setMaxZoomLevel(20);
-        setMapCustomStyleFile(this);
-        aMap.setMapCustomEnable(true);
-
 
 
         //定位小蓝点的显示
@@ -131,9 +128,22 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
         myLocationStyle.myLocationIcon(BitmapDescriptorFactory
                 .fromResource(R.drawable.br_up));// 设置小蓝点的图标
         myLocationStyle.interval(1500); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_MAP_ROTATE);
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
         //aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示，非必需设置。
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
+
+        //位置改变监听
+        aMap.setOnMyLocationChangeListener(this);
+        //设置缩放
+        aMap.setMinZoomLevel(20);
+        aMap.setMaxZoomLevel(20);
+        //setMapCustomStyleFile(this);
+        aMap.setMapCustomEnable(true);
+        //设置地图的倾斜角度
+        cameraUpdate = CameraUpdateFactory.changeTilt(60);
+        aMap.animateCamera(cameraUpdate);
+
 
         //设置一些地图的参数
         mUiSettings = aMap.getUiSettings();
