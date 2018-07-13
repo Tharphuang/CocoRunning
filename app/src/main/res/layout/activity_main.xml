@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <LinearLayout
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -34,16 +34,46 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content" />
      </LinearLayout>-->
-
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/Msg_btn"
+                android:layout_width="187dp"
+                android:layout_height="89dp"
+                android:layout_weight="8"
+                android:clickable="true"
+                app:srcCompat="@android:drawable/btn_star_big_on"
+                tools:layout_editor_absoluteX="75dp"
+                tools:layout_editor_absoluteY="115dp" />
+
+            <Button
+                android:id="@+id/IM_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:text="即时通讯" />
+
+            <Button
+                android:id="@+id/Talk_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:text="交流按钮" />
+        </LinearLayout>
+
+            <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="8">
 
-            <com.amap.api.maps.MapView
+                <com.amap.api.maps.MapView
                 android:id="@+id/map"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></com.amap.api.maps.MapView>
+                android:layout_height="match_parent">
+
+            </com.amap.api.maps.MapView>
         </LinearLayout>
 
 

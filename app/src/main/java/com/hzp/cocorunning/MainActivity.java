@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMapUtils;
@@ -31,7 +32,11 @@ import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.hzp.cocorunning.model.entity.Card;
 import com.hzp.cocorunning.ui.AllCardActivity;
+import com.hzp.cocorunning.ui.LoginActivity;
 import com.hzp.cocorunning.ui.MissionFinishActivity;
+import com.hzp.cocorunning.ui.imUI.IMActivity;
+import com.hzp.cocorunning.ui.messageUI.MessageActivity;
+import com.hzp.cocorunning.ui.talkUI.TalkActivity;
 import com.hzp.cocorunning.util.Constans;
 
 import java.io.File;
@@ -45,13 +50,18 @@ import java.util.Random;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.http.bean.Init;
 import cn.bmob.v3.listener.FindListener;
 
 import static java.lang.Thread.sleep;
 
 
 public class MainActivity extends AppCompatActivity implements AMap.OnMyLocationChangeListener, PoiSearch.OnPoiSearchListener {
-    private FloatingActionButton btn_download;
+    private FloatingActionButton btn_download;//代码176行有监听事件
+    private FloatingActionButton btn_msg;
+    private Button btn_talk;
+    private Button btn_im;
+
     private MainActivity self = this;
     MyLocationStyle myLocationStyle;
     public LatLng latlngA= null;//北邮学6坐标
@@ -59,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
     //指示点的坐标
     private LatLng latlngDirection;
 //    TextView text;
-//    TextView tex1;
+//    TextView 
     private double distance = 10000;
     private UiSettings mUiSettings;
     //在地图上画一个点 ，以显示方向
@@ -175,6 +185,33 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
             public void onClick(View v) {
                Intent intent=new Intent(MainActivity.this, AllCardActivity.class);
                startActivity(intent);
+            }
+        });
+
+        btn_msg=findViewById(R.id.Msg_btn);
+        btn_msg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this, MessageActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_talk=findViewById(R.id.Talk_btn);
+        btn_talk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this, TalkActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_im=findViewById(R.id.IM_btn);
+        btn_im.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, IMActivity.class));
+                finish();
             }
         });
 

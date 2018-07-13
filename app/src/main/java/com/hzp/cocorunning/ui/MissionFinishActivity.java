@@ -29,7 +29,7 @@ public class MissionFinishActivity extends AppCompatActivity {
 
         cardshowbk=findViewById(R.id.cardshowbk_finish);
 
-        Glide.with(this).load(Constans.cardBeans.get(Constans.cardList).getCardFileUrl()).into(cardshowbk);
+        Glide.with(this).load(Constans.cardBeans.get((int)Constans.cardList).getCardFileUrl()).into(cardshowbk);
         Constans.cardList++;
         if(Constans.cardList>=9){
             Constans.cardList=9;
