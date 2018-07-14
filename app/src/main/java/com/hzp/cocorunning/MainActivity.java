@@ -47,6 +47,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import cn.bmob.newim.BmobIM;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -59,8 +60,8 @@ import static java.lang.Thread.sleep;
 public class MainActivity extends AppCompatActivity implements AMap.OnMyLocationChangeListener, PoiSearch.OnPoiSearchListener {
     private FloatingActionButton btn_download;//代码176行有监听事件
     private FloatingActionButton btn_msg;
-    private Button btn_talk;
-    private Button btn_im;
+    //private Button btn_talk;
+    private FloatingActionButton btn_im;
 
     private MainActivity self = this;
     MyLocationStyle myLocationStyle;
@@ -197,14 +198,14 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
             }
         });
 
-        btn_talk=findViewById(R.id.Talk_btn);
-        btn_talk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this, TalkActivity.class);
-                startActivity(intent);
-            }
-        });
+//        btn_talk=findViewById(R.id.Talk_btn);
+//        btn_talk.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent=new Intent(MainActivity.this, TalkActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         btn_im=findViewById(R.id.IM_btn);
         btn_im.setOnClickListener(new View.OnClickListener() {
@@ -233,6 +234,8 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
         //活动销毁时销毁地图
         mMapView.onDestroy();
         //停止定位，销毁定位客户端
+        //清理导致内存泄露的资源
+        //BmobIM.getInstance().clear();
     }
     @Override
     protected void onResume(){

@@ -176,7 +176,6 @@ public class IMActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        startActivity(new Intent(IMActivity.this, MainActivity.class));
         super.onDestroy();
         //清理导致内存泄露的资源
         BmobIM.getInstance().clear();

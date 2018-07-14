@@ -1,5 +1,6 @@
 package com.hzp.cocorunning.ui.messageUI;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.hzp.cocorunning.MainActivity;
 import com.hzp.cocorunning.R;
 import com.hzp.cocorunning.model.entity.userBean;
 import com.hzp.cocorunning.ui.messageUI.adapter.CommentExpandAdapter;
@@ -52,14 +54,14 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
             "\t\t\"total\": 3,\n" +
             "\t\t\"list\": [{\n" +
             "\t\t\t\t\"id\": 42,\n" +
-            "\t\t\t\t\"nickName\": \"程序猿\",\n" +
+            "\t\t\t\t\"nickName\": \"Tharp\",\n" +
             "\t\t\t\t\"userLogo\": \"http://ucardstorevideo.b0.upaiyun.com/userLogo/9fa13ec6-dddd-46cb-9df0-4bbb32d83fc1.png\",\n" +
             "\t\t\t\t\"content\": \"时间是一切财富中最宝贵的财富。\",\n" +
             "\t\t\t\t\"imgId\": \"xcclsscrt0tev11ok364\",\n" +
             "\t\t\t\t\"replyTotal\": 1,\n" +
             "\t\t\t\t\"createDate\": \"三分钟前\",\n" +
             "\t\t\t\t\"replyList\": [{\n" +
-            "\t\t\t\t\t\"nickName\": \"沐風\",\n" +
+            "\t\t\t\t\t\"nickName\": \"hello\",\n" +
             "\t\t\t\t\t\"userLogo\": \"http://ucardstorevideo.b0.upaiyun.com/userLogo/9fa13ec6-dddd-46cb-9df0-4bbb32d83fc1.png\",\n" +
             "\t\t\t\t\t\"id\": 40,\n" +
             "\t\t\t\t\t\"commentId\": \"42\",\n" +
@@ -70,14 +72,14 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
             "\t\t\t},\n" +
             "\t\t\t{\n" +
             "\t\t\t\t\"id\": 41,\n" +
-            "\t\t\t\t\"nickName\": \"设计狗\",\n" +
+            "\t\t\t\t\"nickName\": \"test\",\n" +
             "\t\t\t\t\"userLogo\": \"http://ucardstorevideo.b0.upaiyun.com/userLogo/9fa13ec6-dddd-46cb-9df0-4bbb32d83fc1.png\",\n" +
             "\t\t\t\t\"content\": \"这世界要是没有爱情，它在我们心中还会有什么意义！这就如一盏没有亮光的走马灯。\",\n" +
             "\t\t\t\t\"imgId\": \"xcclsscrt0tev11ok364\",\n" +
             "\t\t\t\t\"replyTotal\": 1,\n" +
             "\t\t\t\t\"createDate\": \"一天前\",\n" +
             "\t\t\t\t\"replyList\": [{\n" +
-            "\t\t\t\t\t\"nickName\": \"沐風\",\n" +
+            "\t\t\t\t\t\"nickName\": \"hello\",\n" +
             "\t\t\t\t\t\"userLogo\": \"http://ucardstorevideo.b0.upaiyun.com/userLogo/9fa13ec6-dddd-46cb-9df0-4bbb32d83fc1.png\",\n" +
             "\t\t\t\t\t\"commentId\": \"41\",\n" +
             "\t\t\t\t\t\"content\": \"时间总是在不经意中擦肩而过,不留一点痕迹.\",\n" +
@@ -114,6 +116,13 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
         tv_Username.setText(BmobUser.getCurrentUser().getUsername());
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MessageActivity.this, MainActivity.class));
+            }
+        });
+        
         expandableListView = (CommentExpandableListView) findViewById(R.id.detail_page_lv_comment);
         bt_comment = (TextView) findViewById(R.id.detail_page_do_comment);
         bt_comment.setOnClickListener(this);
@@ -171,7 +180,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     /**
-     * by moos on 2018/04/20
+     * by hzp on 2018/07/10
      * func:生成测试数据
      * @return 评论数据
      */
@@ -200,7 +209,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     /**
-     * by moos on 2018/04/20
+     * by hzp on 2018/07/10
      * func:弹出评论框
      */
     private void showCommentDialog(){
@@ -226,7 +235,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
 
                     //commentOnWork(commentContent);
                     dialog.dismiss();
-                    CommentDetailBean detailBean = new CommentDetailBean("小明", commentContent,"刚刚");
+                    CommentDetailBean detailBean = new CommentDetailBean("test", commentContent,"刚刚");
                     adapter.addTheCommentData(detailBean);
                     Toast.makeText(MessageActivity.this,"评论成功",Toast.LENGTH_SHORT).show();
 
@@ -259,7 +268,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     /**
-     * by moos on 2018/04/20
+     * by hzp on 2018/07/10
      * func:弹出回复框
      */
     private void showReplyDialog(final int position){
@@ -276,7 +285,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
                 if(!TextUtils.isEmpty(replyContent)){
 
                     dialog.dismiss();
-                    ReplyDetailBean detailBean = new ReplyDetailBean("小红",replyContent);
+                    ReplyDetailBean detailBean = new ReplyDetailBean("test",replyContent);
                     adapter.addTheReplyData(detailBean, position);
                     expandableListView.expandGroup(position);
                     Toast.makeText(MessageActivity.this,"回复成功",Toast.LENGTH_SHORT).show();

@@ -1,5 +1,6 @@
 package com.hzp.cocorunning.ui.imUI.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import com.hzp.cocorunning.MainActivity;
 import com.hzp.cocorunning.R;
 import com.hzp.cocorunning.adapter.ConversationAdapter;
 import com.hzp.cocorunning.adapter.OnRecyclerViewListener;
@@ -30,6 +33,7 @@ import com.hzp.cocorunning.bean.PrivateConversation;
 import com.hzp.cocorunning.db.NewFriend;
 import com.hzp.cocorunning.db.NewFriendManager;
 import com.hzp.cocorunning.event.RefreshEvent;
+import com.hzp.cocorunning.ui.imUI.IMActivity;
 import com.hzp.cocorunning.ui.imUI.SearchUserActivity;
 import cn.bmob.newim.BmobIM;
 import cn.bmob.newim.bean.BmobIMConversation;
@@ -51,6 +55,11 @@ public class ConversationFragment extends ParentWithNaviFragment {
     LinearLayoutManager layoutManager;
 
     @Override
+    public Object left() {
+        return R.drawable.base_action_bar_back_bg_selector;
+    }
+
+    @Override
     protected String title() {
         return "会话";
     }
@@ -65,7 +74,7 @@ public class ConversationFragment extends ParentWithNaviFragment {
         return new ParentWithNaviActivity.ToolBarListener() {
             @Override
             public void clickLeft() {
-
+                startActivity(MainActivity.class,null);
             }
 
             @Override

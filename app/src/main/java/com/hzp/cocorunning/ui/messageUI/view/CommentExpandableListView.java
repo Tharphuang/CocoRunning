@@ -7,9 +7,9 @@ import android.support.v4.view.NestedScrollingChildHelper;
 import android.util.AttributeSet;
 import android.widget.ExpandableListView;
 /**
- * Author: Moos
- * E-mail: moosphon@gmail.com
- * Date:  18/4/20.
+ * Author: hzp
+ * E-mail: hzpplus@163.com
+ * Date:  18/7/10.
  * Desc: 自定义ExpandableListView,解决与CoordinatorLayout滑动冲突问题
  */
 

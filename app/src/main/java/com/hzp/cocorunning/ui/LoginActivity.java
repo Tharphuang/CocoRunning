@@ -107,18 +107,18 @@ public class LoginActivity extends BaseActivity{
         });
 
 
-//        //卡片下载
-//        final BmobQuery<Card> bmobQuery = new BmobQuery<>();
-//        bmobQuery.findObjects(new FindListener<Card>() {
-//            @Override
-//            public void done(List<Card> list, BmobException e) {
-//                if(e==null){
-//                    for(int i = 0; i< list.size(); i++){
-//                        Constans.cardBeans.add(list.get(i));
-//                    }
-//                }
-//            }
-//        });
+        //卡片下载
+        final BmobQuery<Card> bmobQuery = new BmobQuery<>();
+        bmobQuery.findObjects(new FindListener<Card>() {
+            @Override
+            public void done(List<Card> list, BmobException e) {
+                if(e==null){
+                    for(int i = 0; i< list.size(); i++){
+                        Constans.cardBeans.add(list.get(i));
+                    }
+                }
+            }
+        });
 
 
 

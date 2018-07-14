@@ -1,7 +1,7 @@
 package com.hzp.cocorunning.ui.messageUI.bean;
 
 /**
- * Created by moos on 2018/7/11.
+ * Created by hzp on 2018/07/11.
  */
 
 public class ReplyDetailBean {

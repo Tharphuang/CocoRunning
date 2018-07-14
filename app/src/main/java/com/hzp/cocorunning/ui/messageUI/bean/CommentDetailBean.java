@@ -3,7 +3,7 @@ package com.hzp.cocorunning.ui.messageUI.bean;
 import java.util.List;
 
 /**
- * Created by moos on 2018/7/11.
+ * Created by moos on 2018/07/11.
  */
 
 public class CommentDetailBean {

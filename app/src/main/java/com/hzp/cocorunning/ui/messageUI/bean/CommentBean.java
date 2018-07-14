@@ -2,14 +2,17 @@ package com.hzp.cocorunning.ui.messageUI.bean;
 
 import java.util.List;
 
+import cn.bmob.v3.BmobObject;
+
 /**
- * Created by hzp on 2018/7/11.
+ * Created by hzp on 2018/07/10.
  */
 
 public class CommentBean {
     private int code;
     private String message;
     private Data data;
+
     public void setCode(int code) {
         this.code = code;
     }

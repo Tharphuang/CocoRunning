@@ -23,9 +23,9 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * Author: Moos
- * E-mail: moosphon@gmail.com
- * Date:  18/4/20.
+ * Author: hzp
+ * E-mail: hzpplus@163.com
+ * Date:  18/7/10.
  * Desc: 评论与回复列表的适配器
  */
 
@@ -169,7 +169,7 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
 
 
     /**
-     * by moos on 2018/04/20
+     * by hzp on 2018/07/10
      * func:评论成功后插入一条数据
      * @param commentDetailBean 新的评论数据
      */
@@ -185,7 +185,7 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
     }
 
     /**
-     * by moos on 2018/04/20
+     * by hzp on 2018/07/10
      * func:回复成功后插入一条数据
      * @param replyDetailBean 新的回复数据
      */
@@ -207,7 +207,7 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
     }
 
     /**
-     * by moos on 2018/04/20
+     * by hzp on 2018/07/10
      * func:添加和展示所有回复
      * @param replyBeanList 所有回复数据
      * @param groupPosition 当前的评论
