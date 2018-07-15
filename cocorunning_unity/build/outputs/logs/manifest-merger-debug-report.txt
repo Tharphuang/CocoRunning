@@ -1,0 +1,149 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:2:1-42:12
+	package
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:2:70-94
+		INJECTED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml
+		INJECTED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml
+		INJECTED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml
+	xmlns:tools
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:2:95-141
+	xmlns:android
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml
+		INJECTED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml
+	android:installLocation
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:2:142-182
+supports-screens
+ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:3:5-165
+	android:largeScreens
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:3:80-107
+	android:smallScreens
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:3:23-50
+	android:normalScreens
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:3:51-79
+	android:xlargeScreens
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:3:108-136
+	android:anyDensity
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:3:137-162
+application
+ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:5:5-23:17
+	android:label
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:8:9-41
+	android:icon
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:7:9-42
+	tools:targetApi
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:11:9-35
+	android:banner
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:10:9-46
+	android:theme
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:6:9-50
+	android:isGame
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:9:9-30
+activity#com.bupt.kylin.UnityPlayerActivity
+ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:12:5-19:16
+	android:screenOrientation
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:12:48-86
+	android:label
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:12:15-47
+	android:hardwareAccelerated
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:12:301-336
+	android:launchMode
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:12:87-118
+	android:configChanges
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:12:119-300
+	android:name
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:12:337-386
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER+android.intent.category.LEANBACK_LAUNCHER
+ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:13:7-17:23
+action#android.intent.action.MAIN
+ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:14:9-61
+	android:name
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:14:17-58
+category#android.intent.category.LAUNCHER
+ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:15:9-69
+	android:name
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:15:19-66
+category#android.intent.category.LEANBACK_LAUNCHER
+ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:16:9-78
+	android:name
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:16:19-75
+meta-data#unityplayer.UnityActivity
+ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:18:7-82
+	android:value
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:18:59-79
+	android:name
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:18:18-58
+meta-data#unity.build-id
+ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:20:5-101
+	android:value
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:20:46-98
+	android:name
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:20:16-45
+meta-data#unity.splash-mode
+ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:21:5-69
+	android:value
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:21:49-66
+	android:name
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:21:16-48
+meta-data#unity.splash-enable
+ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:22:5-74
+	android:value
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:22:51-71
+	android:name
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:22:16-50
+uses-feature#0x00020000
+ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:25:5-54
+	android:glEsVersion
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:25:19-51
+uses-permission#android.permission.INTERNET
+ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:27:5-67
+	android:name
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:27:22-64
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:29:5-108
+	android:maxSdkVersion
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:29:79-105
+	android:name
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:29:22-78
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:31:5-107
+	android:maxSdkVersion
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:31:78-104
+	android:name
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:31:22-77
+uses-feature#android.hardware.touchscreen
+ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:33:5-90
+	android:required
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:33:63-87
+	android:name
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:33:19-62
+uses-feature#android.hardware.touchscreen.multitouch
+ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:35:5-101
+	android:required
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:35:74-98
+	android:name
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:35:19-73
+uses-feature#android.hardware.touchscreen.multitouch.distinct
+ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:37:5-110
+	android:required
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:37:83-107
+	android:name
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:37:19-82
+uses-feature#android.software.leanback
+ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:39:5-41:34
+	android:required
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:41:7-31
+	android:name
+		ADDED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml:40:7-47
+uses-sdk
+INJECTED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml reason: use-sdk injection requested
+	android:targetSdkVersion
+		INJECTED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml
+		INJECTED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml
+		INJECTED from D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\src\main\AndroidManifest.xml

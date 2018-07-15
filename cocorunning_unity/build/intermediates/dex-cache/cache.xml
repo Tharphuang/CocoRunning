@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\libs\unity-classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="28.0.0"
+        sha1="6f1bd4a025a902de0b1f8a608295f16c45772bb7">
+        <dex dex="D:\NeverStopLearning\Unity3D\examples\cocorunning\android_project\cocorunning\build\intermediates\pre-dexed\debug\unity-classes_0b2e880c294c328f61524b3dcbb47306c86fe3dd.jar" />
+    </item>
+
+</items>

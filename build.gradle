@@ -17,6 +17,9 @@ buildscript {
 
 allprojects {
     repositories {
+        flatDir {
+            dirs 'libs'
+        }
         jcenter()
         maven{
             url "https://raw.github.com/bmob/bmob-android-sdk/master"
