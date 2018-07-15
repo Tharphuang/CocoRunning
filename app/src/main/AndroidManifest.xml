@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.hzp.cocorunning">
-
-    <supports-screens
-        android:anyDensity="true"
-        android:largeScreens="true"
-        android:normalScreens="true"
-        android:smallScreens="true"
-        android:xlargeScreens="true" />
 
     <!-- 允许程序打开网络套接字 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 允许程序设置内置sd卡的写权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- 允许程序获取网络状态 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <!--运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- 允许程序访问WiFi网络信息 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -32,47 +26,57 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 用于申请调用A-GPS模块 -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!-- 摄像头 -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-feature android:glEsVersion="0x00020000" />
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
-    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
-    <uses-feature android:name="android.hardware.camera.front" android:required="false" />
-    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
-    <uses-feature android:name="android.hardware.touchscreen.multitouch" android:required="false" />
-    <uses-feature android:name="android.hardware.touchscreen.multitouch.distinct" android:required="false" />
+    <!-- 录音 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 通知震动 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 设备休眠 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
-        android:banner="@drawable/app_banner"
         android:icon="@mipmap/ic_launcher"
-        android:isGame="true"
         android:label="@string/app_name"
-        android:launchMode="singleTask"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        tools:targetApi="lollipop">
+        android:theme="@style/AppTheme">
 
-        <!-- 高德API的key -->
+        <!-- 高德地图初始化 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="6689d165e379ad533deafb26816c1964" />
-        <!-- 导入unity工程需要 的meta data -->
-        <meta-data
-            android:name="unity.build-id"
-            android:value="2cf81077-6e0d-4075-ba3d-b6ef33b21658" />
-        <meta-data
-            android:name="unity.splash-mode"
-            android:value="0" />
-        <meta-data
-            android:name="unity.splash-enable"
-            android:value="True" />
-        <!-- 高德需要的服务 -->
+
+        <!-- Bmob消息服务，一般不建议删除，除非你将数据库进行了对应的迁移 -->
+        <!-- TODO 集成：1.5、配置IM SDK需要的广播和服务 -->
+        <receiver android:name="cn.bmob.newim.core.ConnectChangeReceiver">
+            <intent-filter>
+                <action android:name="cn.bmob.action.RECONNECT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="cn.bmob.newim.core.service.BmobIMService"
+            android:process=":bmobcore" />
+        <service
+            android:name="cn.bmob.newim.core.service.NotifyService"
+            android:process=":bmobcore" />
+        <service android:name="cn.bmob.newim.core.service.ReConnectService" />
+        <service android:name="cn.bmob.newim.core.service.HeartBeatService" />
+
         <service android:name="com.amap.api.location.APSService" />
 
-        <!-- 启动activity -->
+        <!-- TODO 集成：1.3、配置Bmob平台的应用密钥 -->
+        <meta-data
+            android:name="Bmob_APP_KEY"
+            android:value="dcb6f3d496754f2894444be08632e0fa" />
+
+
+
         <activity
             android:name=".ui.startAction.cocoLogoActivity"
             android:launchMode="singleTask">
@@ -81,18 +85,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.unityActivities.UnityPlayerActivity"
-            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density"
-            android:hardwareAccelerated="false"
-            android:label="@string/app_name"
-            android:launchMode="singleTask"
-            android:screenOrientation="fullSensor"
-            android:theme="@style/UnityThemeSelector">
-            <meta-data
-                android:name="unityplayer.UnityActivity"
-                android:value="true" />
         </activity>
         <activity android:name=".ui.RegisterActivity" />
         <activity
@@ -104,11 +96,6 @@
         <activity
             android:name=".ui.MissionFinishActivity"
             android:launchMode="singleTask" />
-        <activity
-            android:name=".ui.ARImageTarget.ImageTargets"
-            android:configChanges="orientation|keyboardHidden|screenSize|smallestScreenSize"
-            android:launchMode="singleTask"
-            android:theme="@style/AppTheme"></activity>
         <activity android:name=".ui.AllCardActivity" />
         <activity android:name=".ui.CardPages.baiyang" />
         <activity android:name=".ui.CardPages.jinniu" />
@@ -125,8 +112,20 @@
         <activity
             android:name=".ui.LoginActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.startAction.gameTipsActivity"></activity>
-        <activity android:name=".ui.AllCard3dActivity"></activity>
+        <activity android:name=".ui.startAction.gameTipsActivity" />
+        <activity android:name=".ui.messageUI.MessageActivity" />
+        <activity android:name=".ui.talkUI.TalkActivity" />
+        <activity android:name=".ui.imUI.IMActivity" />
+        <activity android:name=".ui.imUI.SearchUserActivity" />
+        <activity android:name=".ui.imUI.UserInfoActivity" />
+        <activity android:name=".ui.imUI.NewFriendActivity" />
+        <activity
+            android:name=".ui.imUI.ChatActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity android:name=".HelloActivity"></activity>
+
+
     </application>
 
 </manifest>

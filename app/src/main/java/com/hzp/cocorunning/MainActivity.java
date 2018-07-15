@@ -3,6 +3,7 @@ package com.hzp.cocorunning;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Message;
@@ -10,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMapUtils;
@@ -18,14 +20,23 @@ import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.Circle;
+import com.amap.api.maps.model.CircleOptions;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
-import com.hzp.cocorunning.ui.AllCard3dActivity;
+import com.amap.api.services.core.LatLonPoint;
+import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.poisearch.PoiResult;
+import com.amap.api.services.poisearch.PoiSearch;
+import com.hzp.cocorunning.model.entity.Card;
 import com.hzp.cocorunning.ui.AllCardActivity;
+import com.hzp.cocorunning.ui.LoginActivity;
 import com.hzp.cocorunning.ui.MissionFinishActivity;
-import com.hzp.cocorunning.ui.unityActivities.UnityPlayerActivity;
+import com.hzp.cocorunning.ui.imUI.IMActivity;
+import com.hzp.cocorunning.ui.messageUI.MessageActivity;
+import com.hzp.cocorunning.ui.talkUI.TalkActivity;
 import com.hzp.cocorunning.util.Constans;
 
 import java.io.File;
@@ -36,11 +47,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import cn.bmob.newim.BmobIM;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.http.bean.Init;
+import cn.bmob.v3.listener.FindListener;
+
 import static java.lang.Thread.sleep;
 
 
-public class MainActivity extends AppCompatActivity implements AMap.OnMyLocationChangeListener{
-    private FloatingActionButton btn_download;
+public class MainActivity extends AppCompatActivity implements AMap.OnMyLocationChangeListener, PoiSearch.OnPoiSearchListener {
+    private FloatingActionButton btn_download;//代码176行有监听事件
+    private FloatingActionButton btn_msg;
+    //private Button btn_talk;
+    private FloatingActionButton btn_im;
+
     private MainActivity self = this;
     MyLocationStyle myLocationStyle;
     public LatLng latlngA= null;//北邮学6坐标
@@ -48,20 +70,24 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
     //指示点的坐标
     private LatLng latlngDirection;
 //    TextView text;
-//    TextView tex1;
+//    TextView 
     private double distance = 10000;
+    private UiSettings mUiSettings;
+    //在地图上画一个点 ，以显示方向
+    private MarkerOptions markerOption;
     private Marker marker;
-    //稍微近一点的光
-    private MarkerOptions markerOption_middle;
-    private Marker marker_middle;
-    //主地图空间
-    private MapView mMapView = null;
+    MapView mMapView = null;
     private AMap aMap;
 
+    //poi搜索的相关功能
+    private PoiSearch.Query query = null;
+    private String keyword = null;
+    PoiSearch poiSearch = null;
 
     //cameraUpdate对象来更新对象状态
     CameraUpdate cameraUpdate;
 
+    private Circle circle;
       //处理距离判断的线程 的what参数
     public static final int JUDGE_DISTANCE = 1;
     //线程使用的handler  创建一个线程来进行实时距离判断
@@ -107,48 +133,45 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
 
         //定位小蓝点的显示
         myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
-
-        //半透明的白
-        myLocationStyle.strokeColor(Color.argb(2,255,255,255));//设置定位蓝点精度圆圈的边框颜色的方法。
-        myLocationStyle.radiusFillColor(Color.argb(100,255,255,255));//设置定位蓝点精度圆圈的填充颜色的方法。
+        myLocationStyle.strokeColor(Color.argb(0,255,255,255));//设置定位蓝点精度圆圈的边框颜色的方法。
+        myLocationStyle.radiusFillColor(Color.argb(0,0,0,0));//设置定位蓝点精度圆圈的填充颜色的方法。
         myLocationStyle.strokeWidth((float) 2.0);
         myLocationStyle.myLocationIcon(BitmapDescriptorFactory
                 .fromResource(R.drawable.br_up));// 设置小蓝点的图标
         myLocationStyle.interval(1500); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_MAP_ROTATE);
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
-        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示，非必需设置。
+        //aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示，非必需设置。
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
 
         //位置改变监听
         aMap.setOnMyLocationChangeListener(this);
         //设置缩放
-        aMap.setMinZoomLevel(19);
-        aMap.setMaxZoomLevel(19);
-        //设置地图样式
-        setMapCustomStyleFile(this,aMap);
+        aMap.setMinZoomLevel(20);
+        aMap.setMaxZoomLevel(20);
+        //setMapCustomStyleFile(this);
         aMap.setMapCustomEnable(true);
         //设置地图的倾斜角度
-        cameraUpdate = CameraUpdateFactory.changeTilt(90);
+        cameraUpdate = CameraUpdateFactory.changeTilt(60);
         aMap.animateCamera(cameraUpdate);
 
 
         //设置一些地图的参数
-        UiSettings mUiSettings = aMap.getUiSettings();
-        mUiSettings.setTiltGesturesEnabled(false);// 设置地图是否可以倾斜
+        mUiSettings = aMap.getUiSettings();
+        //mUiSettings.setTiltGesturesEnabled(false);// 设置地图是否可以倾斜
         mUiSettings.setScaleControlsEnabled(true);// 设置地图默认的比例尺是否显示
         mUiSettings.setZoomControlsEnabled(false);//去掉右下角缩放键
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true) {
-                    if (judgeTheDistance(distance)) {
+                while (true){
+                    if(judgeTheDistance(distance)){
                         Message message = new Message();
                         message.what = JUDGE_DISTANCE;
                         handler.sendMessage(message);
-                        try {
+                        try{
                             sleep(2000);
-                        } catch (Exception e) {
+                        }catch (Exception e){
                             e.printStackTrace();
                         }
                     }
@@ -166,21 +189,43 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
             }
         });
 
-        TextView testAR = findViewById(R.id.test_AR);
-        testAR.setOnClickListener(new View.OnClickListener() {
+        btn_msg=findViewById(R.id.Msg_btn);
+        btn_msg.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(self, UnityPlayerActivity.class));
-            }
-        });
-        TextView test3d = findViewById(R.id.test_3d);
-        test3d.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(self, AllCard3dActivity.class));
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this, MessageActivity.class);
+                startActivity(intent);
             }
         });
 
+//        btn_talk=findViewById(R.id.Talk_btn);
+//        btn_talk.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent=new Intent(MainActivity.this, TalkActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+
+        btn_im=findViewById(R.id.IM_btn);
+        btn_im.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, IMActivity.class));
+                finish();
+            }
+        });
+
+
+       // final BmobQuery<BmobUser> query= new BmobQuery<>();
+//        query.addWhereEqualTo("username","Tharp");
+//        query.findObjects(new FindListener<BmobUser>(){
+
+//            @Override
+//            public void done(List<BmobUser> list, BmobException e) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -189,6 +234,8 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
         //活动销毁时销毁地图
         mMapView.onDestroy();
         //停止定位，销毁定位客户端
+        //清理导致内存泄露的资源
+        //BmobIM.getInstance().clear();
     }
     @Override
     protected void onResume(){
@@ -214,53 +261,37 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
     public void onMyLocationChange(Location location) {
         LatLng latlngB = new LatLng(location.getLatitude(),location.getLongitude());
         distance = AMapUtils.calculateLineDistance(latlngA, latlngB);
-
 //        text.setText("你的坐标为："+latlngB+"\n距离目标点:"+distance+"m\n");
-//        在你的周围绘制一个圆圈
-//        if(circle!=null){
-//            circle.remove();
-//        }
-//        double radius = 26;
-//        circle = aMap.addCircle(new CircleOptions().
-//                    center(latlngB).
-//                    radius(radius).
-//                    //白色的圈
-//                    fillColor(Color.argb(0, 1, 1, 1)).
-//                    strokeColor(Color.argb(255, 255, 255, 255)).
-//                    strokeWidth(5));
-
-
-
-
-        //显示指明方向的光
-        double lat = latlngA.latitude-latlngB.latitude;
-        double lng = latlngA.longitude-latlngB.longitude;
-        if(distance>250){
-            //计算出指示方向的点的经纬度
-            latlngDirection = new LatLng(((800/distance)*lat+latlngB.latitude),((800/distance)*lng+latlngB.longitude));
-            //在地图上画出指示方向的光
-            setDirection(R.drawable.far_light);
-
-        }else{
-            latlngDirection = new LatLng(latlngA.latitude,latlngA.longitude);
-
-            //latlngDirection = new LatLng(latlngB.latitude,latlngB.longitude);
-            setDirection(R.drawable.far_light_middle);
+        //在你的周围绘制一个圆圈
+        if(circle!=null){
+            circle.remove();
+        }
+        if(isClosetoDestination(distance)){
+            circle = aMap.addCircle(new CircleOptions().
+                    center(latlngB).
+                    radius(26).
+                    fillColor(Color.argb(0, 1, 1, 1)).
+                    strokeColor(Color.argb(255, 255, 0, 0)).
+                    strokeWidth(5));
+        }else {
+            circle = aMap.addCircle(new CircleOptions().
+                    center(latlngB).
+                    radius(26).
+                    fillColor(Color.argb(0, 1, 1, 1)).
+                    strokeColor(Color.argb(255, 255, 255, 255)).
+                    strokeWidth(5));
         }
 
-        //使用一条线来代替点指明方向
 
-//        List<LatLng> latLngs = new ArrayList<LatLng>();
-//        latLngs.add(latlngA);
-//        latLngs.add(latlngB);
-//        aMap.addPolyline(new PolylineOptions().
-//                addAll(latLngs).width(10).color(Color.argb(255, 255, 255, 255)));
+        //显示指明方向的点
+        double lat = latlngA.latitude-latlngB.latitude;
+        double lng = latlngA.longitude-latlngB.longitude;
+        //计算除指示方向的点的经纬度
+        latlngDirection = new LatLng(((27/distance)*lat+latlngB.latitude),((27/distance)*lng+latlngB.longitude));
+        //在地图上画出指示方向的点
+        setDirection();
 
-        //使用夹角指明方向
-        //double myBearingToNorth = location.getBearing();
-
-
-        //        //使用高德地图的poi搜索功能，对周边的标志性建筑物进行检索
+//        //使用高德地图的poi搜索功能，对周边的标志性建筑物进行检索
 //        int currentPage= 0;
 //        keyword = "美食";
 //        query = new PoiSearch.Query(keyword, "", "");
@@ -282,7 +313,7 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
     }
 
     //获取自定义地图的文件位置，并进行相关设置
-    private void setMapCustomStyleFile(Context context,AMap aMap) {
+    private void setMapCustomStyleFile(Context context) {
         String styleName = "style.data";
         FileOutputStream outputStream = null;
         InputStream inputStream = null;
@@ -321,21 +352,29 @@ public class MainActivity extends AppCompatActivity implements AMap.OnMyLocation
 
     //判断是否已经到达目的地
     public boolean judgeTheDistance(double distance) {
-        return !(distance > 10) && distance >= 0;
+        return !(distance > 20) && distance >= 0;
     }
     //判断是否已接近目的地
-    //public boolean isClosetoDestination(double distance){return !(distance>550) && distance>=0;  }
-
-
+    public boolean isClosetoDestination(double distance){return !(distance>50) && distance>=0;  }
     //显示一个maker，来标识方位
-    public void setDirection(int x){
+    public void setDirection(){
         if(marker!=null){
             marker.destroy();
         }
-        MarkerOptions markerOption = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(x))
+        markerOption = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.sq_br_up))
                 .position(latlngDirection)
                 .draggable(true);
         marker = aMap.addMarker(markerOption);
     }
 
+
+    @Override
+    public void onPoiSearched(PoiResult poiResult, int i) {
+
+    }
+
+    @Override
+    public void onPoiItemSearched(PoiItem poiItem, int i) {
+
+    }
 }
