@@ -37,7 +37,10 @@ public class LoginActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bmob.initialize(this,"dcb6f3d496754f2894444be08632e0fa");
+        BombIM.init(this);
         setContentView(R.layout.activity_login);
+
+
 
         btn_login=(Button)findViewById(R.id.login);
         et_lName=(EditText)findViewById(R.id.email);
