@@ -2,8 +2,6 @@ package com.hzp.cocorunning.ui;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +9,7 @@ import android.widget.TextView;
 
 import com.hzp.cocorunning.R;
 import com.hzp.cocorunning.presenter.BitWheelInfo;
-import com.hzp.cocorunning.ui.CardPages.baiyang;
+import com.hzp.cocorunning.ui.CardPages.irobot;
 import com.hzp.cocorunning.ui.CardPages.chunv;
 import com.hzp.cocorunning.ui.CardPages.jinniu;
 import com.hzp.cocorunning.ui.CardPages.juxie;
@@ -24,7 +22,6 @@ import com.hzp.cocorunning.ui.CardPages.shuiping;
 import com.hzp.cocorunning.ui.CardPages.tianping;
 import com.hzp.cocorunning.ui.CardPages.tianxie;
 import com.hzp.cocorunning.util.BitView;
-import com.hzp.cocorunning.util.Constans;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +43,8 @@ public class AllCardActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onCheck(int position) {
                 switch (infos.get(position).text){
-                    case "baiyang":
-                        startActivity(new Intent(AllCardActivity.this,baiyang.class));
+                    case "irobot":
+                        startActivity(new Intent(AllCardActivity.this,irobot.class));
                         break;
                     case "jinniu":
                         startActivity(new Intent(AllCardActivity.this,jinniu.class));
@@ -95,7 +92,7 @@ public class AllCardActivity extends AppCompatActivity implements View.OnClickLi
     //转盘显示的信息
     public void getBitWheelInfos() {
 
-        infos.add(new BitWheelInfo( "baiyang",BitmapFactory.decodeResource(getResources(), R.mipmap.baiyang)));
+        infos.add(new BitWheelInfo( "irobot",BitmapFactory.decodeResource(getResources(), R.mipmap.baiyang)));
         infos.add(new BitWheelInfo( "jinniu",BitmapFactory.decodeResource(getResources(), R.mipmap.jinniu)));
         infos.add(new BitWheelInfo( "shuangzi",BitmapFactory.decodeResource(getResources(), R.mipmap.shuangzi)));
         infos.add(new BitWheelInfo( "juxie",BitmapFactory.decodeResource(getResources(), R.mipmap.juxie)));

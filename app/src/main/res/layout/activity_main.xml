@@ -14,11 +14,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-     <!--<LinearLayout
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <!--<LinearLayout
          android:layout_width="wrap_content"
          android:layout_height="0dp"
          android:layout_weight="2"
@@ -34,76 +38,50 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content" />
      </LinearLayout>-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
-            <!--Button
-                android:id="@+id/Talk_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="8"
-                android:text="交流按钮" /-->
-        </LinearLayout>
 
-            <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="8">
-
-                <com.amap.api.maps.MapView
+            <com.amap.api.maps.MapView
                 android:id="@+id/map"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="1100dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginStart="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
             </com.amap.api.maps.MapView>
-        </LinearLayout>
 
+            <TextView
+                android:id="@+id/test_3d"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:background="@color/white"
+                app:layout_constraintStart_toEndOf="@+id/test_AR"
+                app:layout_constraintTop_toTopOf="@+id/map" />
+            <TextView
+                android:id="@+id/test_AR"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/test_IM"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                app:layout_constraintStart_toEndOf="@+id/test_3d"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/Msg_btn"
-                android:layout_width="107dp"
-                android:layout_height="83dp"
-                android:layout_marginBottom="20dp"
-                android:layout_weight="8"
-                android:clickable="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/bMain_Float"
-                app:srcCompat="@android:drawable/btn_star_big_on" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/bMain_Float"
-                android:layout_width="101dp"
-                android:layout_height="110dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/kapainji"
-                app:backgroundTint="#00000000"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/IM_btn"
-                android:layout_width="101dp"
-                android:layout_height="110dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginRight="120dp"
-                android:src="@drawable/kapainji"
-                app:backgroundTint="#00000000"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintBottom_toTopOf="parent"/>
         </android.support.constraint.ConstraintLayout>
+
+
 
     </android.support.constraint.ConstraintLayout>
 

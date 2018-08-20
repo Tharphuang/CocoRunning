@@ -89,12 +89,12 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
             "\t\t\t},\n" +
             "\t\t\t{\n" +
             "\t\t\t\t\"id\": 40,\n" +
-            "\t\t\t\t\"nickName\": \"产品喵\",\n" +
+            "\t\t\t\t\"nickName\": \"petter\",\n" +
             "\t\t\t\t\"userLogo\": \"http://ucardstorevideo.b0.upaiyun.com/userLogo/9fa13ec6-dddd-46cb-9df0-4bbb32d83fc1.png\",\n" +
             "\t\t\t\t\"content\": \"笨蛋自以为聪明，聪明人才知道自己是笨蛋。\",\n" +
             "\t\t\t\t\"imgId\": \"xcclsscrt0tev11ok364\",\n" +
             "\t\t\t\t\"replyTotal\": 0,\n" +
-            "\t\t\t\t\"createDate\": \"三天前\",\n" +
+            "\t\t\t\t\"createDate\": \"一天前\",\n" +
             "\t\t\t\t\"replyList\": []\n" +
             "\t\t\t}\n" +
             "\t\t]\n" +
@@ -119,7 +119,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MessageActivity.this, MainActivity.class));
+                startActivity(new Intent(MessageActivity.this,MainActivity.class));
             }
         });
         
@@ -130,7 +130,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle("冠军榜");
+        collapsingToolbar.setTitle("CocoZone");
         commentsList = generateTestData();
         initExpandableListView(commentsList);
     }

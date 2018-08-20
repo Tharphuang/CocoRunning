@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:duplicateParentState="true"
+        android:duplicateParentState="true" 
         android:padding="5dp"
         >
 
@@ -27,7 +27,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="18dp"
             android:layout_toRightOf="@id/avatar"
-            android:textColor="#0F0F0F"
+            android:textColor="#ffffff"
             android:textSize="16sp" />
 
         <Button

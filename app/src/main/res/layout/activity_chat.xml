@@ -14,7 +14,7 @@
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/sw_refresh"
-            android:background="@color/text_gray"
+            android:background="@drawable/backgroundtimg3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >

@@ -3,14 +3,14 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="transparent">#00000000</color>
+
     <color name="white">#ffffff</color>
     <color name="balck">#000000</color>
 
     <color name="gray">#575757</color>
     <color name="light_gray">#D3D3D3</color>
     <color name="semi_transparent_black">#C8000000</color>
-    <color name="transparent">#00000000</color>
-
 
     <color name="base_color_text_black">#3e3e39</color>
     <color name="base_color_text_gray">#9fa0a0</color>
@@ -37,5 +37,4 @@
     <color name="color_msg_system_time_bg">#20000000</color>
     <color name="color_1e1e1e">#1e1e1e</color>
     <color name="color_b4">#b4b4b4</color>
-
 </resources>

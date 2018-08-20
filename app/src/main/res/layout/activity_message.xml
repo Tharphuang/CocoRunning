@@ -8,6 +8,7 @@ android:layout_height="match_parent"
 tools:context="com.hzp.cocorunning.ui.messageUI.MessageActivity">
 <android.support.design.widget.CoordinatorLayout
     android:id="@+id/main_content"
+    android:background="@color/gray"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -34,7 +35,7 @@ tools:context="com.hzp.cocorunning.ui.messageUI.MessageActivity">
                 android:layout_width="match_parent"
                 android:layout_height="248dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/teaser"
+                android:src="@drawable/bgmsg2"
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="parallax" />
 
@@ -57,6 +58,7 @@ tools:context="com.hzp.cocorunning.ui.messageUI.MessageActivity">
             android:layout_height="match_parent">
             <LinearLayout
                 android:id="@+id/detail_page_above_container"
+                android:background="@color/gray"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -75,7 +77,7 @@ tools:context="com.hzp.cocorunning.ui.messageUI.MessageActivity">
                         android:src="@drawable/user_logo"
                         android:layout_marginLeft="16dp"
                         app:civ_border_width="1dp"
-                        app:civ_border_color="@android:color/white"/>
+                        app:civ_border_color="@android:color/darker_gray"/>
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -86,7 +88,7 @@ tools:context="com.hzp.cocorunning.ui.messageUI.MessageActivity">
                             android:id="@+id/detail_page_userName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="#5B595A"
+                            android:textColor="@color/white"
                             android:textSize="14sp"
                             android:text="沐风" />
                         <TextView
@@ -96,7 +98,7 @@ tools:context="com.hzp.cocorunning.ui.messageUI.MessageActivity">
                             android:text="1小时前"
                             android:textSize="12sp"
                             android:layout_marginTop="3dp"
-                            android:textColor="#989898"/>
+                            android:textColor="@color/white"/>
                     </LinearLayout>
                     <ImageView
                         android:id="@+id/detail_page_focus"
@@ -115,8 +117,8 @@ tools:context="com.hzp.cocorunning.ui.messageUI.MessageActivity">
                     android:layout_marginLeft="18dp"
                     android:layout_marginTop="12dp"
                     android:gravity="center"
-                    android:text="冠军感言"
-                    android:textColor="#363636"
+                    android:text=""
+                    android:textColor="@color/white"
                     android:textSize="18sp" />
 
                 <TextView
@@ -128,7 +130,7 @@ tools:context="com.hzp.cocorunning.ui.messageUI.MessageActivity">
                     android:ellipsize="end"
                     android:maxLines="10"
                     android:text="你是风里的花，水里的鱼。\n。"
-                    android:textColor="#6e6e6e"
+                    android:textColor="#eeeeee"
                     android:textSize="14sp" />
                 <View
                     android:layout_width="match_parent"
@@ -136,12 +138,13 @@ tools:context="com.hzp.cocorunning.ui.messageUI.MessageActivity">
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginLeft="16dp"
-                    android:background="#e6e6e6"/>
+                    android:background="@color/text_gray"/>
             </LinearLayout>
 
 
             <LinearLayout
                 android:id="@+id/detail_page_comment_container"
+                android:background="@color/gray"
                 android:layout_below="@+id/detail_page_above_container"
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
@@ -165,8 +168,9 @@ tools:context="com.hzp.cocorunning.ui.messageUI.MessageActivity">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="58dp"
+    android:backgroundTint="@color/gray"
     android:layout_alignParentBottom="true"
-    android:background="@android:color/white"
+    android:background="@color/gray"
     android:elevation="2dp"
     android:orientation="horizontal"
     android:gravity="center_vertical">
@@ -175,7 +179,7 @@ tools:context="com.hzp.cocorunning.ui.messageUI.MessageActivity">
         android:layout_width="0dp"
         android:layout_height="34dp"
         android:layout_weight="1"
-        android:textColor="#B6B6B6"
+        android:textColor="#BbBbBb"
         android:textSize="12sp"
         android:text="说点什么吧..."
         android:background="@drawable/comment_bt_selector"
@@ -190,7 +194,7 @@ tools:context="com.hzp.cocorunning.ui.messageUI.MessageActivity">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#9A9A9A"
+        android:textColor="@color/white"
         android:textSize="14sp"
         android:layout_marginLeft="10dp"
         android:text="32"/>
@@ -203,7 +207,7 @@ tools:context="com.hzp.cocorunning.ui.messageUI.MessageActivity">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#9A9A9A"
+        android:textColor="@color/white"
         android:textSize="14sp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="14dp"

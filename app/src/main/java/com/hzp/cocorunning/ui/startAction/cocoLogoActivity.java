@@ -17,7 +17,7 @@ public class cocoLogoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coco_logo);
 
-        welcomeImg = (ImageView) this.findViewById(R.id.welcome_img);
+        welcomeImg = findViewById(R.id.welcome_img);
         AlphaAnimation anima = new AlphaAnimation(0.3f, 1.0f);
         anima.setDuration(3000);// 设置动画显示时间
         welcomeImg.startAnimation(anima);
