@@ -15,70 +15,13 @@ Sports card game collection game
   
 二、部分核心业务逻辑算法
 
-
-1、基于POI图像的目标检测网络
-
-引入问题：
-	 对上一版本游戏的路径布局的人文因素改进。上一版本中我们主要基于20个采样兴趣点，实现了路径的整体普适范围和路途长短均衡。本次主要引进评估了兴趣点的安全性和美观性，最后综合调优。
-主要关注点：
-	 某一目标点的安全性，美观性。安全性——车辆往来。美观性——绿色植被
-解决方案：
-	stp1:获取兴趣点周围的街景：
-	通过python爬取兴趣点的街景图片，用作安全检测素材。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		图示为校区内所有被采集了街景图片的道路（蓝色所示）
-
-上图给出了，全景地图的资源获取途径。20个兴趣点的图片
-
-
-
-
-
-
-
-
-
-
-
-	step2:车辆数目检测
-	运用了YOLO的目标检测网路（具于神经网络）
-
-
-
-
-该网络结构包括 24 个卷积层，最后接 2 个全连接层。张量7x7x30。深度30（Bx5+C）。5：x,y,w,h,c。
-	
-step3:编写执行脚本
-	a../darknet detect cfg/yolov3.cfg yolov3.weights data/nanmen/$i.jpg
-运用了yolov3.weights的预训练模型，识别图像中的汽车和卡车。
-修改源文件中的image.c文件
-
-
-
-
-
-图像语义分割，给出天空，树木等景观意愿。
+![](https://github.com/Tharphuang/CocoRunning/blob/master/0001.jpg)
+![](https://github.com/Tharphuang/CocoRunning/blob/master/0002.jpg)
+![](https://github.com/Tharphuang/CocoRunning/blob/master/0003.jpg)
+![](https://github.com/Tharphuang/CocoRunning/blob/master/0004.jpg)
+![](https://github.com/Tharphuang/CocoRunning/blob/master/0005.jpg)
+![](https://github.com/Tharphuang/CocoRunning/blob/master/0006.jpg)
+![](https://github.com/Tharphuang/CocoRunning/blob/master/0007.jpg)
 
 
 
