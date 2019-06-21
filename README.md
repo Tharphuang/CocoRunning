@@ -22,6 +22,7 @@ Sports card game collection game
 ![](https://github.com/Tharphuang/CocoRunning/blob/master/0005.jpg)
 ![](https://github.com/Tharphuang/CocoRunning/blob/master/0006.jpg)
 ![](https://github.com/Tharphuang/CocoRunning/blob/master/0007.jpg)
+![](https://github.com/Tharphuang/CocoRunning/blob/master/0008.jpg)
 
 
 
